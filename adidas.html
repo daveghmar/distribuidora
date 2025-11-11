@@ -34,11 +34,13 @@
       color: black;
       border-radius: 10px;
       overflow: hidden;
+      th:nth-child(1) { width: 50px; text-align: center; }  /* coluna # */
+      th:nth-child(2) { width: auto; }                      /* código ocupa o resto */
+      th:nth-child(3) { width: 90px; text-align: center; }
     }
     .btn {
       border-radius: 50px;
     }
-
     .botao-voltar {
      position: fixed;
      top: 15px;
@@ -53,43 +55,41 @@
      transition: all 0.25s ease;
      z-index: 1000;
     }
-
     .botao-voltar:hover {
      background: linear-gradient(135deg, #00b4d8, #007bff);
      transform: translateY(-2px);
      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
     }
-
   </style>
 </head>
 <body>
 
-    <a href="index.html" class="botao-voltar">⬅️ Voltar ao Início</a>
+<a href="index.html" class="botao-voltar">⬅️ Voltar ao Início</a>
     
-  <div class="container text-center">
-    
-    <h2 class="mb-3">📦 Contagem Adidas</h2>
-    <input id="barcodeInput" type="text" class="form-control mb-3" placeholder="Codigo aqui" autofocus>
+<div class="container text-center">
+  <h2 class="mb-3">📦 Contagem do Dia</h2>
+  <input id="barcodeInput" type="text" class="form-control mb-3" placeholder="Código aqui" autofocus>
 
-    <h4 class="mb-3">Total de Códigos: <span id="total">0</span></h4>
+  <h4 class="mb-3">Total de Códigos: <span id="total">0</span></h4>
 
-    <div class="d-flex justify-content-center gap-2 mb-3">
-      <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar Excel</button>
-      <button class="btn btn-danger" onclick="limpar()">🗑️ Limpar</button>
-    </div>
-
-    <table class="table table-sm table-bordered">
-      <thead class="table-light">
-        <tr>
-          <th>#</th>
-          <th>Código</th>
-        </tr>
-      </thead>
-      <tbody id="tabela"></tbody>
-    </table>
+  <div class="d-flex justify-content-center gap-2 mb-3">
+    <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar Excel</button>
+    <button class="btn btn-danger" onclick="limpar()">🗑️ Limpar Tudo</button>
   </div>
 
-  <script>
+  <table class="table table-sm table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Código</th>
+        <th>❌</th>
+      </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+  </table>
+</div>
+
+<script>
   const input = document.getElementById('barcodeInput');
   const tabela = document.getElementById('tabela');
   const total = document.getElementById('total');
@@ -117,12 +117,27 @@
     tabela.innerHTML = '';
     codigosA.forEach((codigo, i) => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${i + 1}</td><td>${codigo}</td>`;
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${codigo}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" onclick="limparcod(${i})">Excluir</button>
+        </td>`;
       tabela.appendChild(tr);
     });
     total.textContent = codigosA.length;
   }
 
+  // 🔹 Remove um único código
+  function limparcod(index) {
+    if (confirm('Tem certeza que deseja remover este código?')) {
+      codigosA.splice(index, 1);
+      salvar();
+      atualizarTela();
+    }
+  }
+
+  // 🔹 Remove todos
   function limpar() {
     if (confirm('Tem certeza que deseja limpar todos os códigos?')) {
       codigosA = [];
@@ -131,6 +146,7 @@
     }
   }
 
+  // 🔹 Exporta Excel
   function exportarExcel() {
     if (codigosA.length === 0) {
       alert('Nenhum código para exportar.');
@@ -142,10 +158,9 @@
     XLSX.writeFile(wb, `adidas_${new Date().toLocaleDateString('pt-BR')}.xlsx`);
   }
 
+  // 🔹 Mantém o foco
   window.addEventListener('click', () => input.focus());
 </script>
 
 </body>
-
 </html>
-
