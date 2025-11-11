@@ -58,7 +58,7 @@
 
     .botao-voltar:hover {
      background: linear-gradient(135deg, #00b4d8, #007bff);
-     transform: translateY(-2px);
+     transorm: translateY(-2px);
      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
     }
 
@@ -95,15 +95,15 @@
     const input = document.getElementById('barcodeInput');
     const tabela = document.getElementById('tabela');
     const total = document.getElementById('total');
-    let codigosF = JSON.parse(localStorage.getItem('codigos_fila') || '[]');
+    let codigos = JSON.parse(localStorage.getItem('codigos_fila') || '[]');
 
     atualizarTela();
 
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const codigo = input.value.trim();
-        if (codigo && !codigosF.includes(codigo)) {
-          codigosF.push(codigo);
+        if (codigo && !codigos.includes(codigo)) {
+          codigos.push(codigo);
           salvar();
           atualizarTela();
         }
@@ -112,7 +112,7 @@
     });
 
     function salvar() {
-      localStorage.setItem('codigos_fila', JSON.stringify(codigosF));
+      localStorage.setItem('codigos_fila', JSON.stringify(codigos));
     }
 
     function atualizarTela() {
@@ -140,18 +140,18 @@
 
     function limpar() {
       if (confirm('Tem certeza que deseja limpar todos os códigos do dia?')) {
-        codigosF = [];
+        codigos = [];
         salvar();
         atualizarTela();
       }
     }
 
     function exportarExcel() {
-        if (codigosF.length === 0) {
+        if (codigos.length === 0) {
             alert('Nenhum código para exportar.');
         return;
         }
-        const ws = XLSX.utils.json_to_sheet(codigosF.map((c, i) => ({ Nº: i + 1, Código: c })));
+        const ws = XLSX.utils.json_to_sheet(codigos.map((c, i) => ({ Nº: i + 1, Código: c })));
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Fila");
         XLSX.writeFile(wb, `fila_${new Date().toLocaleDateString('pt-BR')}.xlsx`);
