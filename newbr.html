@@ -93,7 +93,7 @@
         const total = document.getElementById('total');
         
         // CHAVE DE ADAPTAÇÃO 1: Nome da chave do localStorage e variável
-        let codigos = JSON.parse(localStorage.getItem('codigos_NewBr') || '[]');
+        let codigos = JSON.parse(localStorage.getItem('codigos_newbr') || '[]');
 
         atualizarTela();
 
@@ -111,7 +111,7 @@
 
         function salvar() {
             // CHAVE DE ADAPTAÇÃO 2: Nome da chave do localStorage
-            localStorage.setItem('codigos_NewBr', JSON.stringify(codigos));
+            localStorage.setItem('codigos_newbr', JSON.stringify(codigos));
         }
 
         function atualizarTela() {
@@ -149,3 +149,4 @@
 
 </body>
 </html>
+
