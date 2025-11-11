@@ -35,6 +35,9 @@
             color: black;
             border-radius: 10px;
             overflow: hidden;
+          th:nth-child(1) { width: 50px; text-align: center; }  /* coluna # */
+          th:nth-child(2) { width: auto; }                      /* código ocupa o resto */
+          th:nth-child(3) { width: 90px; text-align: center; }
         }
         .btn {
             border-radius: 50px;
@@ -81,6 +84,7 @@
                 <tr>
                     <th>#</th>
                     <th>Código</th>
+                    <th>❌</th>
                 </tr>
             </thead>
             <tbody id="tabela"></tbody>
@@ -118,11 +122,24 @@
             tabela.innerHTML = '';
             codigos.forEach((codigo, i) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${i + 1}</td><td>${codigo}</td>`;
-                tabela.appendChild(tr);
-            });
+                tr.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${codigo}</td>
+                    <td>
+                      <button class="btn btn-sm btn-danger" onclick="limparcod(${i})">Excluir</button>
+                                </td>`;
+              tabela.appendChild(tr);
+            }); 
             total.textContent = codigos.length;
         }
+          // 🔹 Remove um único código
+          function limparcod(index) {
+            if (confirm('Tem certeza que deseja remover este código?')) {
+              codigos.splice(index, 1);
+              salvar();
+              atualizarTela();
+            }
+          }
 
         function limpar() {
             if (confirm('Tem certeza que deseja limpar todos os códigos?')) {
