@@ -58,7 +58,7 @@
 
     .botao-voltar:hover {
      background: linear-gradient(135deg, #00b4d8, #007bff);
-     transorm: translateY(-2px);
+     transform: translateY(-2px);
      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
     }
 
@@ -116,27 +116,27 @@
     }
 
     function atualizarTela() {
-            tabela.innerHTML = '';
-            codigos.forEach((codigo, i) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${i + 1}</td>
-                    <td>${codigo}</td>
-                    <td>
-                      <button class="btn btn-sm btn-danger" onclick="limparcod(${i})">Excluir</button>
-                                </td>`;
-              tabela.appendChild(tr);
-            }); 
-            total.textContent = codigos.length;
-        }
+      tabela.innerHTML = '';
+        codigos.forEach((codigo, i) => {
+          const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${i + 1}</td>
+              <td>${codigo}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" onclick="limparcod(${i})">Excluir</button>
+              </td>`;
+            tabela.appendChild(tr);
+        }); 
+          total.textContent = codigos.length;
+    }
           // 🔹 Remove um único código
-          function limparcod(index) {
-            if (confirm('Tem certeza que deseja remover este código?')) {
-              codigos.splice(index, 1);
-              salvar();
-              atualizarTela();
-            }
-          }
+    function limparcod(index) {
+        if (confirm('Tem certeza que deseja remover este código?')) {
+        codigos.splice(index, 1);
+        salvar();
+        atualizarTela();
+      }
+    }
 
     function limpar() {
       if (confirm('Tem certeza que deseja limpar todos os códigos do dia?')) {
