@@ -55,12 +55,20 @@
       border-top: 1px solid rgba(255,255,255,0.3);
       padding-top: 15px;
     }
+    .logo-top {
+        position: fixed;      /* fixa na tela, mesmo ao rolar */
+        top: 10px;            /* distância do topo */
+        left: 10px;           /* distância da esquerda */
+        width: 120px;         /* tamanho da imagem (ajuste como quiser) */
+        z-index: 9999;        /* fica por cima de tudo */
+    }
   </style>
 </head>
 
 <body>
+    <img src="riopre.png" class="logo-top">
   <div class="container text-center">
-    <h2 class="mb-3">📦 Painel de Contagem do Dia</h2>
+    <h2 class="mb-3"><img src="riopre.png" class="logo-top">📦 Painel de Contagem do Dia</h2>
 
     <div class="grid-marcas" id="listaMarcas"></div>
 
@@ -156,6 +164,7 @@
   </script>
 </body>
 </html>
+
 
 
 
