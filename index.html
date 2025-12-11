@@ -67,7 +67,7 @@
 
 <body>
   <div class="container text-center">
-    <h2 class="mb-3">📦 Painel de Contagem do Dia</h2>
+    <h2 class="mb-3">📦 Rio Preto Express</h2>
 
     <div class="grid-marcas" id="listaMarcas"></div>
 
@@ -76,94 +76,10 @@
     </div>
 
     <div class="d-flex justify-content-center gap-2 mt-4">
-      <button class="btn btn-success" onclick="exportarExcel()">📊 Exportar Excel</button>
-      <button class="btn btn-danger" onclick="limpar()">🗑️ Limpar Tudo</button>
+      <button class="grid-marcas" href="carreagamento.html">📊 Carregamento</button>
+      <button class="total-geral" href="chegada.html">🗑️ Chegada</button>
     </div>
   </div>
-
-  <script>
-    const marcas = [
-  { nome: "Adidas", arquivo: "adidas.html", chave: "codigos_adidas" },
-  { nome: "Alpar", arquivo: "alpar.html", chave: "codigos_alparl" },
-  { nome: "BBCE", arquivo: "bbce.html", chave: "codigos_bbce" },
-  { nome: "Cambuci", arquivo: "cambuci.html", chave: "codigos_cambuci" },
-  { nome: "Cooper shoes", arquivo: "coopers.html", chave: "codigos_coopers" },
-  { nome: "Dass", arquivo: "dass.html", chave: "codigos_dass" },
-  { nome: "DPK", arquivo: "dpk.html", chave: "codigos_dpk" },
-  { nome: "Fila", arquivo: "fila.html", chave: "codigos_fila" },
-  { nome: "Frilog", arquivo: "frilog.html", chave: "codigos_frilog" },
-  { nome: "Magnum", arquivo: "magnum.html", chave: "codigos_magnum" },
-  { nome: "Nakata", arquivo: "nakata.html", chave: "codigos_nakata" },
-  { nome: "Nautica", arquivo: "nautica.html", chave: "codigos_nautica" },
-  { nome: "Neoruber", arquivo: "neoruber.html", chave: "codigos_neoruber" },
-  { nome: "New BR", arquivo: "newbr.html", chave: "codigos_newbr" },
-  { nome: "Outros", arquivo: "outros.html", chave: "codigos_outros" },
-  { nome: "Pegada", arquivo: "pegada.html", chave: "codigos_pegada" },
-  { nome: "Penalty", arquivo: "penalty.html", chave: "codigos_penalty" },
-  { nome: "Picadilly", arquivo: "picadilly.html", chave: "codigos_picadilly" },
-  { nome: "Stampa", arquivo: "stampa.html", chave: "codigos_stampa" },
-  { nome: "Sugar Shoes", arquivo: "sugars.html", chave: "codigos_sugars" },
-  { nome: "Top Shoes", arquivo: "tops.html", chave: "codigos_tops" },
-  { nome: "Viamarte", arquivo: "viamarte.html", chave: "codigos_viamarte" },
-  { nome: "Vulcabras", arquivo: "vulcabras.html", chave: "codigos_vulcabras" },
-  { nome: "Whirlpool", arquivo: "whirlpool.html", chave: "codigos_whirlpool" }
-];
-
-
-    function atualizarTela() {
-      const lista = document.getElementById('listaMarcas');
-      lista.innerHTML = '';
-      let totalGeral = 0;
-
-      marcas.forEach(m => {
-        const codigos = JSON.parse(localStorage.getItem(m.chave) || '[]');
-        totalGeral += codigos.length;
-
-        const div = document.createElement('div');
-        div.className = 'marca';
-        div.innerHTML = `
-          <span><strong>${m.nome}</strong>: ${codigos.length}</span>
-          <button class="btn btn-light btn-sm" onclick="irPara('${m.arquivo}')">Abrir</button>
-        `;
-        lista.appendChild(div);
-      });
-
-      document.getElementById('totalGeral').textContent = totalGeral;
-    }
-
-    function irPara(pagina) {
-      window.location.href = pagina;
-    }
-
-    function exportarExcel() {
-      let dados = [];
-      marcas.forEach(m => {
-        const codigos = JSON.parse(localStorage.getItem(m.chave) || '[]');
-        codigos.forEach((c, i) => {
-          dados.push({ Marca: m.nome, Nº: i + 1, Código: c });
-        });
-      });
-
-      if (dados.length === 0) {
-        alert('Nenhum código para exportar.');
-        return;
-      }
-
-      const ws = XLSX.utils.json_to_sheet(dados);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Códigos Totais");
-      XLSX.writeFile(wb, `contagem_total_${new Date().toLocaleDateString('pt-BR')}.xlsx`);
-    }
-
-    function limpar() {
-      if (confirm('Tem certeza que deseja limpar TODOS os dados?')) {
-        marcas.forEach(m => localStorage.removeItem(m.chave));
-        atualizarTela();
-      }
-    }
-
-    atualizarTela();
-  </script>
 </body>
 </html>
 
