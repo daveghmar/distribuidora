@@ -8,53 +8,64 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
   <style>
-    body {
-      background: linear-gradient(135deg, #004692, #00bee4);
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Fundo geral */
+body {
+  background: linear-gradient(135deg, #004692, #00bee4);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
 
-    .container {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 900px;
-      width: 100%;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
+/* Container glass */
+.container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 
-    .grid-marcas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 12px;
-      margin-top: 20px;
-    }
+/* Grid das marcas e botões */
+.grid-marcas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+}
 
-    .marca {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 10px 15px;
-      border-radius: 10px;
-    }
+/* Botões principais */
+.grid-marcas a {
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  background: rgba(255, 0, 0, 0.75);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  transition: 0.25s;
+}
 
-    .marca button {
-      border-radius: 20px;
-      font-weight: 600;
-    }
+/* Hover bonito */
+.grid-marcas a:hover {
+  background: rgba(255, 0, 0, 1);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
 
-    .total-geral {
-      font-size: 1.4rem;
-      margin-top: 25px;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      padding-top: 15px;
-    }
+/* Título principal */
+h2 {
+  font-weight: 700;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 
